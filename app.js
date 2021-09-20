@@ -10,13 +10,9 @@ const Mqtt = require('./models/Mqtt.js');
 const Course = require('./models/Course.js');
 const Class = require('./models/Class.js');
 
-// OBS
-const OBSWebSocket = require('obs-websocket-js');
-const obs = new OBSWebSocket();
-
 // vMix
-const { XmlApi: vMixXmlApi } = require('vmix-js-utils');
-const { DataParser, GeneralState } = require('vmix-js-utils');
+// const { XmlApi: vMixXmlApi } = require('vmix-js-utils');
+// const { DataParser, GeneralState } = require('vmix-js-utils');
 
 
 const mongoDB = 'mongodb+srv://sosdan73:1234@testbase.flj56.mongodb.net/Courses?retryWrites=true&w=majority';
@@ -188,50 +184,51 @@ app.get('/get-mqtt', jsonParser, async (req, res) => {
 })
 
 // OBS
-app.post('/connect-obs', jsonParser, async (req, res) => {
-    body = req.body;
-    obs.connect({
-        address: `${body.address}:${body.port}`,
-        password: body.password
-    })
-    .then(data => {
-        res.status(200);
-        res.send(data)
-        console.log('OBS подключен');
-    })
-    .catch(err => {
-        res.status(500);
-        console.error(err)
-    })
-})
+// app.post('/connect-obs', jsonParser, async (req, res) => {
+//     body = req.body;
+//     obs.connect({
+//         // address: `${body.address}:${body.port}`,
+//         // password: body.password,
+//         address: `http://192.168.1.186:4444`
+//     })
+//     .then(data => {
+//         res.status(200);
+//         res.send(data)
+//         console.log('OBS подключен');
+//     })
+//     .catch(err => {
+//         res.status(500);
+//         console.error(err)
+//     })
+// })
 
-app.post('/disconnect-obs', jsonParser, async (req, res) => {
-    body = req.body;
-    obs.disconnect()
-    .then(data => {
-        res.status(200);
-        res.send(data)
-        console.log('OBS отключен');
-    })
-    .catch(err => {
-        res.status(500);
-        console.error(err)
-    })
-})
+// app.post('/disconnect-obs', jsonParser, async (req, res) => {
+//     body = req.body;
+//     obs.disconnect()
+//     .then(data => {
+//         res.status(200);
+//         res.send(data)
+//         console.log('OBS отключен');
+//     })
+//     .catch(err => {
+//         res.status(500);
+//         console.error(err)
+//     })
+// })
 
-app.post('/get-obs-data', jsonParser, async (req, res) => {
-    body = req.body;
-    obs.send('GetSceneList')
-    .then(data => {
-        res.status(200);
-        res.send(data)
-        console.log('Данные отправлены');
-    })
-    .catch(err => {
-        res.status(500);
-        console.error(err)
-    })
-})
+// app.post('/get-obs-data', jsonParser, async (req, res) => {
+//     body = req.body;
+//     obs.send('GetSceneList')
+//     .then(data => {
+//         res.status(200);
+//         res.send(data)
+//         console.log('Данные отправлены');
+//     })
+//     .catch(err => {
+//         res.status(500);
+//         console.error(err)
+//     })
+// })
 
 // vMix
 
@@ -271,8 +268,6 @@ app.post('/get-vmix-data', jsonParser, async (req, res) => {
     //     console.error(err)
     // })
 })
-
-// General
 
 app.listen(8081)
 console.log('Works!');
